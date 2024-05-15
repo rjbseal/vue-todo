@@ -1,17 +1,3 @@
-<template>
-  <div class="container">
-    <h1 class="title">Futuristic To-Do List</h1>
-    <div class="input-container">
-      <input type="text" id="new-item" placeholder="Add a new task" />
-      <button id="add-button">Add</button>
-    </div>
-    <ul id="todo-list">
-      <!-- To-Do items will go here -->
-      <li>An item here</li>
-    </ul>
-  </div>
-</template>
-
 <script>
 export default {
   data() {
@@ -22,10 +8,11 @@ export default {
     }
   },
   methods: {
-    addItem() {
+    addTodo() {
       if (this.newItem) {
         this.items.push(this.newItem)
         this.newItem = ''
+        console.log(this.items)
       }
     },
     removeItem(index) {
@@ -34,6 +21,20 @@ export default {
   }
 }
 </script>
+
+<template>
+  <div class="container">
+    <h1 class="title">Futuristic To-Do List</h1>
+    <div class="input-container">
+      <input v-model="newItem" type="text" id="new-item" placeholder="Add a new task" />
+      <button id="add-button" @click="addTodo">Add</button>
+    </div>
+    <ul id="todo-list">
+      <!-- To-Do items will go here -->
+      <li>An item here</li>
+    </ul>
+  </div>
+</template>
 
 <style>
 body {
