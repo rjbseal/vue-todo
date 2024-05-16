@@ -79,6 +79,12 @@ button:hover {
   background: #444;
 }
 
+.todo-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 1em;
+}
+
 .remove-button {
   background: #ff5555;
   border: none;

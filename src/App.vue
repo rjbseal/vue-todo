@@ -41,6 +41,12 @@ export default {
     removeItem(id) {
       // this.items.splice(index, 1)
       this.items = this.items.filter((item) => item.id !== id)
+    },
+    editTodo(item) {
+      item.isEditing = !item.isEditing
+    },
+    handleblur(item) {
+      item.isEditing = false
     }
   }
 }
@@ -63,10 +69,16 @@ export default {
       <!-- To-Do items will go here -->
       <li v-for="(item, index) in this.items" :key="index">
         <div class="todo-item-text">
-          {{ item.text }}
+          <input
+            type="text"
+            v-model="item.text"
+            :disabled="!item.isEditing"
+            @blur="handleblur(item)"
+          />
         </div>
         <div class="todo-actions">
           <font-awesome-icon @click="removeItem(item.id)" :icon="['fas', 'trash']" />
+          <font-awesome-icon @click="editTodo(item)" :icon="['fas', 'pen-to-square']" />
         </div>
       </li>
     </ul>

@@ -8,10 +8,10 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 // Import specific icons
-import { faPlus, faTrash } from '@fortawesome/free-solid-svg-icons'
+import { faPlus, faTrash, faPenToSquare } from '@fortawesome/free-solid-svg-icons'
 
 // Add icons to the library
-library.add(faPlus, faTrash)
+library.add(faPlus, faTrash, faPenToSquare)
 
 // Create the Vue app
 const app = createApp(App)
