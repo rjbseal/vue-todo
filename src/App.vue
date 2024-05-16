@@ -1,22 +1,46 @@
 <script>
+import './assets/style.css'
+
 export default {
   data() {
     return {
       title: 'My Vue App',
       newItem: '',
-      items: ['Item 1', 'Item 2', 'Item 3']
+      items: [
+        {
+          id: 0,
+          text: 'Item 1',
+          isEditing: false
+        },
+        {
+          id: 1,
+          text: 'Item 2',
+          isEditing: false
+        },
+        {
+          id: 2,
+          text: 'Item 3',
+          isEditing: false
+        }
+      ]
     }
   },
   methods: {
     addTodo() {
       if (this.newItem) {
-        this.items.push(this.newItem)
+        this.items.push({
+          id: this.items.length + 1,
+          text: this.newItem,
+          isEditing: false
+        })
+
         this.newItem = ''
         console.log(this.items)
       }
     },
-    removeItem(index) {
-      this.items.splice(index, 1)
+    removeItem(id) {
+      // this.items.splice(index, 1)
+      this.items = this.items.filter((item) => item.id !== id)
     }
   }
 }
@@ -26,109 +50,27 @@ export default {
   <div class="container">
     <h1 class="title">Futuristic To-Do List</h1>
     <div class="input-container">
-      <input v-model="newItem" type="text" id="new-item" placeholder="Add a new task" />
+      <input
+        v-model="newItem"
+        type="text"
+        id="new-item"
+        placeholder="Add a new task"
+        @keyup.enter="addTodo"
+      />
       <button id="add-button" @click="addTodo">Add</button>
     </div>
     <ul id="todo-list">
       <!-- To-Do items will go here -->
-      <li>An item here</li>
+      <li v-for="(item, index) in this.items" :key="index">
+        <div class="todo-item-text">
+          {{ item.text }}
+        </div>
+        <div class="todo-actions">
+          <font-awesome-icon @click="removeItem(item.id)" :icon="['fas', 'trash']" />
+        </div>
+      </li>
     </ul>
   </div>
 </template>
 
-<style>
-body {
-  background-color: #1a1a1a;
-  color: #f0f0f0;
-  font-family: 'Arial', sans-serif;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  margin: 0;
-}
-
-.container {
-  background: #262626;
-  border-radius: 15px;
-  padding: 20px 40px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-  text-align: center;
-}
-
-.title {
-  font-size: 2.5em;
-  color: #00aaff;
-  margin-bottom: 20px;
-}
-
-.input-container {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 20px;
-}
-
-input[type='text'] {
-  padding: 10px;
-  font-size: 1.2em;
-  border: 2px solid #00aaff;
-  border-radius: 10px;
-  background: #1a1a1a;
-  color: #f0f0f0;
-  outline: none;
-}
-
-input[type='text']::placeholder {
-  color: #555;
-}
-
-button {
-  padding: 10px 20px;
-  font-size: 1.2em;
-  margin-left: 10px;
-  border: none;
-  border-radius: 10px;
-  background: #00aaff;
-  color: #1a1a1a;
-  cursor: pointer;
-  transition: background 0.3s;
-}
-
-button:hover {
-  background: #0088cc;
-}
-
-#todo-list {
-  list-style: none;
-  padding: 0;
-}
-
-#todo-list li {
-  background: #333;
-  padding: 10px;
-  margin: 10px 0;
-  border-radius: 10px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  transition: background 0.3s;
-}
-
-#todo-list li:hover {
-  background: #444;
-}
-
-.remove-button {
-  background: #ff5555;
-  border: none;
-  padding: 5px 10px;
-  border-radius: 10px;
-  cursor: pointer;
-  color: #fff;
-  transition: background 0.3s;
-}
-
-.remove-button:hover {
-  background: #ff3333;
-}
-</style>
+<style></style>
